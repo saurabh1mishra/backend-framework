@@ -10,7 +10,7 @@ public class PropertiesReader {
     public PropertiesReader() {
         Prop = new Properties();
         try {
-            String env = "environment";
+            String env = System.getProperty("ENV", "environment");
             String propertiesFilePath = env + ".properties";
             InputStream inputStream = getResourceAsStream(propertiesFilePath);
             Prop.load(inputStream);
