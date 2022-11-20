@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="/Users/olx/ext.git/apiframework-master 2">
         <classes>
-            <class name="testSuite.getBooksTest"/>
+            <class name="testSuite.UserTest"/>
         </classes>
     </test>
 </suite>
