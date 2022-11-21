@@ -1,22 +1,31 @@
-package properties;
+package core.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesReader {
-    private Properties Prop;
+    private Properties properties;
 
-    public PropertiesReader() {
-        Prop = new Properties();
+    private static PropertiesReader propertiesReader;
+
+    private PropertiesReader() {
+        properties = new Properties();
         try {
             String env = System.getProperty("ENV", "environment");
             String propertiesFilePath = env + ".properties";
             InputStream inputStream = getResourceAsStream(propertiesFilePath);
-            Prop.load(inputStream);
+            properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static PropertiesReader getInstance( ) {
+        if(propertiesReader == null) {
+            propertiesReader = new PropertiesReader();
+        }
+        return propertiesReader;
     }
 
     private InputStream getResourceAsStream(String path) {
@@ -24,6 +33,6 @@ public class PropertiesReader {
     }
 
     public String getHost() {
-        return Prop.getProperty("host");
+        return properties.getProperty("host");
     }
 }

@@ -1,4 +1,4 @@
-package core.template;
+package core.apiEngine;
 
 
 import java.util.HashMap;
@@ -58,10 +58,5 @@ public interface IServiceEndpoint {
     default List<String> sslConfig() {
         return null;
     }
-
-
-    default boolean printResponseBody() { return true; }
-
-    default boolean printRequestBody() { return true; }
 
 }

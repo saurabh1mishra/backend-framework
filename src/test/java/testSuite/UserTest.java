@@ -1,8 +1,11 @@
 package testSuite;
 
 import client.users.UsersClient;
+import core.apiEngine.IRestResponse;
 import entities.Users.UsersRequest;
 import entities.Users.UsersResponse;
+import org.apache.http.HttpStatus;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -21,17 +24,10 @@ public class UserTest extends BaseTest {
 
     @Test(groups = {"USERS"})
     public void createUserTest() {
-        UsersRequest userRequest = UsersRequest.builder()
-                .id(testHelper.randomNumber(10))
-                .username(faker.name().username())
-                .firstName(faker.name().firstName())
-                .lastName(faker.name().lastName())
-                .email(String.format("%s.%s@dummy.com", faker.name().firstName(), faker.name().lastName()))
-                .phone(faker.phoneNumber().cellPhone())
-                .password(faker.name().username())
-                .build();
+        UsersRequest userRequest = UsersRequest.builder().id(testHelper.randomNumber(10)).username(faker.name().username()).firstName(faker.name().firstName()).lastName(faker.name().lastName()).email(String.format("%s.%s@dummy.com", faker.name().firstName(), faker.name().lastName())).phone(faker.phoneNumber().cellPhone()).password(faker.name().username()).build();
         List<UsersRequest> userRequestList = new ArrayList<>();
-        UsersResponse response = usersClient.createUser(userRequestList);
-        response.assertHttpStatusToBe(200);
+        IRestResponse<UsersResponse> response = usersClient.createUser(userRequestList);
+        response.assertHttpStatusToBe(HttpStatus.SC_OK);
+        Assert.assertEquals(response.getBody().getMessage(), "ok", "user was not created getting wrong message.");
     }
 }

@@ -1,10 +1,6 @@
-package core.utils;
+package core.apiEngine;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import core.template.AuthType;
-import core.template.HttpMethod;
-import core.template.IServiceEndpoint;
-import core.template.RequestBody;
+import core.utils.TestHelper;
 import io.restassured.RestAssured;
 import io.restassured.config.EncoderConfig;
 import io.restassured.config.RestAssuredConfig;
@@ -26,21 +22,11 @@ import static io.restassured.RestAssured.given;
 public class RequestHandler {
     private final static Logger logger = LoggerFactory.getLogger(RequestHandler.class);
 
-    public static Map<String, List<String>> errorInformationForEachServiceFailure = new HashMap<>();
     private boolean urlEncodingEnabled = true;
-    public static String getBearerTokenString(String token) {
-        return String.format("Bearer %s", token);
+
+    public <T> IRestResponse processAPIRequest(Class<T> t, IServiceEndpoint iServiceEndpoint) {
+        return new RestResponse(t, processRequest(iServiceEndpoint));
     }
-
-    public static String getBasicTokenString(String token) {
-        return String.format("Basic %s", token);
-    }
-
-    public static String getBearerToken(String bearerToken) {
-        return bearerToken.replaceAll("Bearer ", "").trim();
-    }
-
-
 
     public Response processRequest(IServiceEndpoint iServiceEndpoint) {
         Response response = processIServiceEndpoint(iServiceEndpoint);
@@ -70,8 +56,6 @@ public class RequestHandler {
     }
 
 
-
-
     private Response makeAPIRequestAsPerHTTPMethod(String url, HttpMethod httpMethod, RequestSpecification requestSpecification) {
         Response response = null;
         switch (httpMethod) {
@@ -95,10 +79,9 @@ public class RequestHandler {
     }
 
     private RequestSpecification formRequestSpecification(IServiceEndpoint iServiceEndpoint) {
-        RestAssuredConfig config = RestAssured.config()
-                .encoderConfig(new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+        RestAssuredConfig config = RestAssured.config().encoderConfig(new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
         RestAssured.useRelaxedHTTPSValidation();
-        List<String> sslConfig=iServiceEndpoint.sslConfig();
+        List<String> sslConfig = iServiceEndpoint.sslConfig();
         if (sslConfig != null) {
             KeyStore keyStore;
             SSLSocketFactory clientAuthFactory = null;
@@ -106,14 +89,13 @@ public class RequestHandler {
             String password = sslConfig.get(1);
             try {
                 keyStore = KeyStore.getInstance("jks");
-                keyStore.load(
-                        new FileInputStream(keyStorePath),
-                        password.toCharArray());
+                keyStore.load(new FileInputStream(keyStorePath), password.toCharArray());
                 if (keyStore != null) {
 
                     try {
                         clientAuthFactory = new SSLSocketFactory(keyStore, password);
-                    } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException | UnrecoverableKeyException e) {
+                    } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException |
+                             UnrecoverableKeyException e) {
                         e.printStackTrace();
                     }
                 }
@@ -137,18 +119,16 @@ public class RequestHandler {
             iServiceEndpoint.pathParameters().forEach(p -> request.pathParam(p.getKey(), p.getValue()));
         }
 
-        if (iServiceEndpoint.body() != null)
-            request.body(iServiceEndpoint.body().getBodyString());
+        if (iServiceEndpoint.body() != null) request.body(iServiceEndpoint.body().getBodyString());
 
-        if (!urlEncodingEnabled)
-            request.urlEncodingEnabled(urlEncodingEnabled);
+        if (!urlEncodingEnabled) request.urlEncodingEnabled(urlEncodingEnabled);
 
         Map<Object, Object> auth = iServiceEndpoint.auth();
         Object authType = auth.get("type");
         if (!authType.equals(AuthType.NONE)) {
             if (authType.equals(AuthType.BASIC)) {
                 request.auth().basic(auth.get("username").toString(), auth.get("password").toString());
-            } else if(authType.equals(AuthType.BASIC_PREEMPTIVE)) {
+            } else if (authType.equals(AuthType.BASIC_PREEMPTIVE)) {
                 request.auth().preemptive().basic(auth.get("username").toString(), auth.get("password").toString()).log().headers();
             }
         }

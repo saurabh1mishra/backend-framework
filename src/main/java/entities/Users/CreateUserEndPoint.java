@@ -1,10 +1,10 @@
 package entities.Users;
 
 import constant.UsersServiceHost;
-import core.template.HttpMethod;
-import core.template.IServiceEndpoint;
-import core.template.Param;
-import core.template.RequestBody;
+import core.apiEngine.HttpMethod;
+import core.apiEngine.IServiceEndpoint;
+import core.apiEngine.Param;
+import core.apiEngine.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +46,7 @@ public class CreateUserEndPoint implements IServiceEndpoint {
 
     @Override
     public RequestBody body() {
-        return new RequestBody(UsersRequest.class, listUsersRequest);
+        return new RequestBody(listUsersRequest);
     }
+
 }

@@ -2,14 +2,15 @@ package entities.Users;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import core.template.BaseResponse;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UsersResponse extends BaseResponse {
+@NoArgsConstructor
+public class UsersResponse {
     @JsonProperty("code")
     public Integer code;
     @JsonProperty("type")

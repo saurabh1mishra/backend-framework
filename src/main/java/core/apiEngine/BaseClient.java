@@ -1,8 +1,6 @@
-package client;
+package core.apiEngine;
 
 
-import core.template.IServiceEndpoint;
-import core.utils.RequestHandler;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 

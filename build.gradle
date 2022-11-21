@@ -30,11 +30,9 @@ task runTest(type: Test) {
         threadCount = Integer.parseInt(System.getProperty('parallel', '1'))
         useDefaultListeners = true
         includeGroups System.getProperty('tag', 'USERS')
-       // suites 'testng.xml'
+        //suites 'testng.xml'
         useDefaultListeners true
         outputDirectory file("$projectDir/reports/testNGReport")
-        includeGroups System.getProperty('tag', 'NONE')
-
     }
 
     testLogging.showStandardStreams = true
