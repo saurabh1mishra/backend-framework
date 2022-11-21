@@ -8,7 +8,6 @@ public class UsersServiceHost {
     private static final PropertiesReader propertiesReader = PropertiesReader.getInstance();
     private static final String host = propertiesReader.getHost();
     public static final String CREATE_USER = String.format("%s/v2/user/createWithArray", host);
-    public static final String UPDATE_USER = String.format("%s/user/{username}", host);
-    public static final String GET_USER = String.format("%s/user/{username}", host);
-
+    public static final String UPDATE_USER = String.format("%s/v2/user/{username}", host);
+    public static final String GET_USER = String.format("%s/v2/user/{username}", host);
 }

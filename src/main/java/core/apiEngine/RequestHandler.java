@@ -24,8 +24,8 @@ public class RequestHandler {
 
     private boolean urlEncodingEnabled = true;
 
-    public <T> IRestResponse processAPIRequest(Class<T> t, IServiceEndpoint iServiceEndpoint) {
-        return new RestResponse(t, processRequest(iServiceEndpoint));
+    public <T> IRestResponse<T> processAPIRequest(Class<T> t, IServiceEndpoint iServiceEndpoint) {
+        return new RestResponse<>(t, processRequest(iServiceEndpoint));
     }
 
     public Response processRequest(IServiceEndpoint iServiceEndpoint) {

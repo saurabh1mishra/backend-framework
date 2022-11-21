@@ -9,21 +9,21 @@ import core.apiEngine.RequestBody;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateUserEndPoint implements IServiceEndpoint {
-    private List<UsersRequest> listUsersRequest;
+public class GetUserEndpoint implements IServiceEndpoint {
+    private String userName;
 
-    public CreateUserEndPoint(List<UsersRequest> listUsersRequest) {
-        this.listUsersRequest = listUsersRequest;
+    public GetUserEndpoint(String userName) {
+        this.userName = userName;
     }
 
     @Override
     public String url() {
-        return UsersServiceHost.CREATE_USER;
+        return UsersServiceHost.GET_USER;
     }
 
     @Override
     public HttpMethod httpMethod() {
-        return HttpMethod.POST;
+        return HttpMethod.GET;
     }
 
     @Override
@@ -33,7 +33,9 @@ public class CreateUserEndPoint implements IServiceEndpoint {
 
     @Override
     public List<Param> pathParameters() {
-        return null;
+        List<Param> pathParam = new ArrayList<>();
+        pathParam.add(new Param("username", this.userName));
+        return pathParam;
     }
 
     @Override
@@ -45,8 +47,7 @@ public class CreateUserEndPoint implements IServiceEndpoint {
     }
 
     @Override
-    public RequestBody<List<UsersRequest>> body() {
-        return new RequestBody<>(listUsersRequest);
+    public RequestBody body() {
+        return null;
     }
-
 }
