@@ -2,9 +2,9 @@ package testSuite;
 
 import client.users.UsersClient;
 import core.apiEngine.IRestResponse;
-import entities.Users.GetUsersResponse;
-import entities.Users.UsersRequest;
-import entities.Users.UsersResponse;
+import entities.users.GetUsersResponse;
+import entities.users.UsersRequest;
+import entities.users.UsersResponse;
 import org.apache.http.HttpStatus;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -20,7 +20,6 @@ public class UserTest extends BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp() {
         this.usersClient = new UsersClient();
-
     }
 
     @Test(groups = {"USERS", "P0"})

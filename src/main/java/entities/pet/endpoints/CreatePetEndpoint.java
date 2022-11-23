@@ -1,24 +1,26 @@
-package entities.Users;
+package entities.pet.endpoints;
 
-import constant.UsersServiceHost;
+import constant.PetServiceHost;
 import core.apiEngine.HttpMethod;
 import core.apiEngine.IServiceEndpoint;
 import core.apiEngine.Param;
 import core.apiEngine.RequestBody;
+import entities.pet.PetObj;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateUserEndPoint implements IServiceEndpoint {
-    private List<UsersRequest> listUsersRequest;
+public class CreatePetEndpoint implements IServiceEndpoint {
 
-    public CreateUserEndPoint(List<UsersRequest> listUsersRequest) {
-        this.listUsersRequest = listUsersRequest;
+    private PetObj createPetRequest;
+
+    public CreatePetEndpoint(PetObj createPetRequest) {
+        this.createPetRequest = createPetRequest;
     }
 
     @Override
     public String url() {
-        return UsersServiceHost.CREATE_USER;
+        return PetServiceHost.CREATE_PET;
     }
 
     @Override
@@ -45,8 +47,7 @@ public class CreateUserEndPoint implements IServiceEndpoint {
     }
 
     @Override
-    public RequestBody<List<UsersRequest>> body() {
-        return new RequestBody<>(listUsersRequest);
+    public RequestBody<PetObj> body() {
+        return new RequestBody<>(createPetRequest);
     }
-
 }

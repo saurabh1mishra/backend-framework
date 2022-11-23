@@ -1,19 +1,15 @@
-package entities.Users;
+package entities.users;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashMap;
-import java.util.Map;
 @Getter
 @Setter
-@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UsersRequest {
+public class GetUsersResponse {
     @JsonProperty("id")
     public Integer id;
     @JsonProperty("username")

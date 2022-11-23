@@ -3,7 +3,10 @@ package client.users;
 import core.apiEngine.BaseClient;
 import core.apiEngine.IRestResponse;
 import core.apiEngine.RequestHandler;
-import entities.Users.*;
+import entities.users.*;
+import entities.users.endpoints.CreateUserEndPoint;
+import entities.users.endpoints.GetUserEndpoint;
+import entities.users.endpoints.UpdateUserEndPoint;
 
 import java.util.List;
 

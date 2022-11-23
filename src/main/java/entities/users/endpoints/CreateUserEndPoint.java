@@ -1,31 +1,30 @@
-package entities.Users;
+package entities.users.endpoints;
 
 import constant.UsersServiceHost;
 import core.apiEngine.HttpMethod;
 import core.apiEngine.IServiceEndpoint;
 import core.apiEngine.Param;
 import core.apiEngine.RequestBody;
+import entities.users.UsersRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateUserEndPoint implements IServiceEndpoint {
-    private UsersRequest usersRequest;
-    private String userName;
+public class CreateUserEndPoint implements IServiceEndpoint {
+    private List<UsersRequest> listUsersRequest;
 
-    public UpdateUserEndPoint(UsersRequest usersRequest, String userName) {
-        this.usersRequest = usersRequest;
-        this.userName = userName;
+    public CreateUserEndPoint(List<UsersRequest> listUsersRequest) {
+        this.listUsersRequest = listUsersRequest;
     }
 
     @Override
     public String url() {
-        return UsersServiceHost.UPDATE_USER;
+        return UsersServiceHost.CREATE_USER;
     }
 
     @Override
     public HttpMethod httpMethod() {
-        return HttpMethod.PUT;
+        return HttpMethod.POST;
     }
 
     @Override
@@ -35,9 +34,7 @@ public class UpdateUserEndPoint implements IServiceEndpoint {
 
     @Override
     public List<Param> pathParameters() {
-        List<Param> pathParams = new ArrayList<>();
-        pathParams.add(new Param("username", userName));
-        return pathParams;
+        return null;
     }
 
     @Override
@@ -49,7 +46,8 @@ public class UpdateUserEndPoint implements IServiceEndpoint {
     }
 
     @Override
-    public RequestBody<UsersRequest> body() {
-        return new RequestBody<>(usersRequest);
+    public RequestBody<List<UsersRequest>> body() {
+        return new RequestBody<>(listUsersRequest);
     }
+
 }

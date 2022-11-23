@@ -1,29 +1,30 @@
-package entities.Users;
+package entities.pet.endpoints;
 
-import constant.UsersServiceHost;
+import constant.PetServiceHost;
 import core.apiEngine.HttpMethod;
 import core.apiEngine.IServiceEndpoint;
 import core.apiEngine.Param;
 import core.apiEngine.RequestBody;
+import entities.pet.PetObj;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetUserEndpoint implements IServiceEndpoint {
-    private String userName;
+public class UpdatePetEndpoint implements IServiceEndpoint {
+    private PetObj createPetRequest;
 
-    public GetUserEndpoint(String userName) {
-        this.userName = userName;
+    public UpdatePetEndpoint(PetObj createPetRequest) {
+        this.createPetRequest = createPetRequest;
     }
 
     @Override
     public String url() {
-        return UsersServiceHost.GET_USER;
+        return PetServiceHost.UPDATE_PET;
     }
 
     @Override
     public HttpMethod httpMethod() {
-        return HttpMethod.GET;
+        return HttpMethod.PUT;
     }
 
     @Override
@@ -33,9 +34,7 @@ public class GetUserEndpoint implements IServiceEndpoint {
 
     @Override
     public List<Param> pathParameters() {
-        List<Param> pathParam = new ArrayList<>();
-        pathParam.add(new Param("username", this.userName));
-        return pathParam;
+        return null;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class GetUserEndpoint implements IServiceEndpoint {
     }
 
     @Override
-    public RequestBody body() {
-        return null;
+    public RequestBody<PetObj> body() {
+        return new RequestBody<>(createPetRequest);
     }
 }
