@@ -89,7 +89,7 @@ public class UserTest extends BaseTest {
         createUserResponse.assertHttpStatusToBe(HttpStatus.SC_OK);
 
         IRestResponse<GetUsersResponse> getUserResponse = usersClient.getUser(userName);
-        getUserResponse.assertHttpStatusToBe(HttpStatus.SC_OK);
+        getUserResponse.assertHttpStatusToBe(HttpStatus.SC_ACCEPTED);
         GetUsersResponse getUsersResponse = getUserResponse.getBody();
         Assert.assertEquals(getUsersResponse.getUsername(), userName, String.format("useName  %s is not matching.", userName));
         Assert.assertEquals(getUsersResponse.getId(), id, String.format("id  %s is not matching.", id));

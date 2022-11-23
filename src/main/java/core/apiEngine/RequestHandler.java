@@ -105,7 +105,7 @@ public class RequestHandler {
             }
             config = config.sslConfig(new SSLConfig().with().sslSocketFactory(clientAuthFactory).and().allowAllHostnames());
         }
-        RequestSpecification request = given().config(config);
+        RequestSpecification request = given().config(config).filter(new RestAssuredRequestFilter());
 
         if (iServiceEndpoint.headers() != null) {
             iServiceEndpoint.headers().forEach(h -> request.header(h.getKey(), h.getValue()));

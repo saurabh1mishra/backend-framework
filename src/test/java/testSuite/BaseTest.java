@@ -22,6 +22,7 @@ public class BaseTest {
         RestAssured.config = RestAssured.config().sslConfig(sslConfig().relaxedHTTPSValidation());
         this.testHelper = new TestHelper();
         this.faker = new Faker();
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
 
