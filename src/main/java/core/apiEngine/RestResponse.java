@@ -3,12 +3,17 @@ package core.apiEngine;
 import io.restassured.response.Response;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Array;
 
 import static org.testng.Assert.assertEquals;
 
 @Getter
 @Setter
 public class RestResponse<T> implements IRestResponse<T> {
+    private final static Logger logger = LoggerFactory.getLogger(RestResponse.class);
 
     private T data;
     private Response response;
@@ -19,6 +24,7 @@ public class RestResponse<T> implements IRestResponse<T> {
         try {
             this.data = t.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
+            logger.warn(e.getMessage());
             throw new RuntimeException("There should be a default constructor in the Response POJO");
         }
     }
@@ -50,6 +56,7 @@ public class RestResponse<T> implements IRestResponse<T> {
             data = (T) response.getBody().as(data.getClass());
         } catch (Exception e) {
             this.e = e;
+            logger.warn(e.getMessage());
         }
         return data;
     }

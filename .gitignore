@@ -3,6 +3,7 @@
 .DS_Store
 dump.rdb
 reports
+log
 
 # VCS
 .git/

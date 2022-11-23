@@ -8,6 +8,9 @@ import entities.pet.PetObj;
 import entities.pet.endpoints.CreatePetEndpoint;
 import entities.pet.endpoints.GetPetByStatusEndpoint;
 import entities.pet.endpoints.UpdatePetEndpoint;
+import io.restassured.response.Response;
+
+import java.util.List;
 
 public class PetClient extends BaseClient {
 
@@ -21,8 +24,8 @@ public class PetClient extends BaseClient {
         return new RequestHandler().processAPIRequest(PetObj.class, updatePetEndpoint);
     }
 
-    public IRestResponse<PetObj> searchPetByStatus(PetStatus status) {
+    public Response searchPetByStatus(PetStatus status) {
         GetPetByStatusEndpoint getPetByStatusEndpoint = new GetPetByStatusEndpoint(status);
-        return new RequestHandler().processAPIRequest(PetObj.class, getPetByStatusEndpoint);
+        return new RequestHandler().processRequest(getPetByStatusEndpoint);
     }
 }
