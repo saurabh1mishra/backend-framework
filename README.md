@@ -1,8 +1,30 @@
-# Backend Framework
+#  API Automation Test framework
+API Automation Test is RestAssured framework to perform API testing.
+
+## Tech Used
+RestAssured, Java, testNg, gradle, logback etc. 
 
 ## Prerequisite
 Maven or Gradle build tools should be installed and configured,
 Java v1.8 should be installed and configured,
+
+## Getting Started
+```
+1. git clone git@github.com:saurabh1mishra/backend-framework.git
+2. Navigate to backend-framework
+```
+
+**In terminal from root project folder (backend-framework), run below commands as required**
+
+Run Tests
+- To run all features `./gradlew :runTest`
+- To pass environment variable from command line `./gradlew :runTest -Dtag=SMOKE -DENV=enviornment`
+  
+  
+Report Path  
+- gradle Report: `{ROOT_PROJECT_FOLDER}/reports/gradleReport`
+- tesnNG Report: `{ROOT_PROJECT_FOLDER}/reports/testNGReport`
+- log: `{ROOT_PROJECT_FOLDER}/log`
 
 ### FRAMEWORK SHOULD CONTAIN TESTS AS MENTIONED BELOW:
 ````
