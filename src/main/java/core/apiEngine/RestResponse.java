@@ -6,10 +6,6 @@ import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Array;
-
-import static org.testng.Assert.assertEquals;
-
 @Getter
 @Setter
 public class RestResponse<T> implements IRestResponse<T> {

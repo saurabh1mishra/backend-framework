@@ -53,22 +53,23 @@ public class PetTest extends BaseTest {
         Assert.assertEquals(updatePetResponse.getBody().getName(), updatedName, "name is not updated.");
     }
 
-    @Test(groups = {"PET"})
-    public void getUserByStatusPetTest() {
+    @Test(groups = {"PET", "P0", "SMOKE"})
+    public void petServiceE2ETest() {
+        //create Pet
         String updatedName = "updated_" + faker.name().name();
         IRestResponse<PetObj> createPetResponse = createRandomUser();
         createPetResponse.assertHttpStatusToBe(HttpStatus.SC_OK);
         PetObj petResponse = createPetResponse.getBody();
-
+        // update pet name & status
         petResponse.setStatus(PetStatus.SOLD.name());
         petResponse.setName(updatedName);
         IRestResponse<PetObj> updatePetResponse = petClient.updatePet(petResponse);
         updatePetResponse.assertHttpStatusToBe(HttpStatus.SC_OK);
-
+        //get the updated record & verify
         List<PetObj> searchPetByStatusResponse = List.of(petClient.searchPetByStatus(PetStatus.SOLD).as(PetObj[].class));
         List<PetObj> result = searchPetByStatusResponse.stream().filter(ele -> ele.getName().equals(updatedName) && ele.getStatus().equals(PetStatus.SOLD.name())).collect(Collectors.toList());
         result.forEach(System.out::println);
-        assert result.size() == 1;
+        assert result.size() <= 1 : "updated data is found.";
     }
 }
 

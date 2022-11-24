@@ -22,7 +22,7 @@ public class UserTest extends BaseTest {
         this.usersClient = new UsersClient();
     }
 
-    @Test(groups = {"USERS", "P0"})
+    @Test(groups = {"USERS", "P0", "SMOKE"})
     public void userServiceHappyPathTest(ITestContext testContext) {
         //create User
         String userName = faker.name().username();
